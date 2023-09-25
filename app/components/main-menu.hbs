@@ -1,0 +1,11 @@
+<div class="main-menu">
+  <ul>
+    {{#each this.routes as |route|}}
+      <li>
+        <LinkTo @route={{route.route}}>
+          {{route.label}}
+        </LinkTo>
+      </li>
+    {{/each}}
+  </ul> 
+</div> 

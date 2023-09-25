@@ -1,0 +1,20 @@
+.main-menu ul {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.main-menu ul li {
+    display: inline-block;
+}
+
+.main-menu ul li a {
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    background: lightgreen;
+}
+
+.main-menu ul li a:hover,
+.main-menu ul li a.active {
+    background: greenyellow;
+}
