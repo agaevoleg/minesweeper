@@ -1,0 +1,63 @@
+{{!-- template-lint-disable no-invalid-interactive --}}
+{{#if this.isInit}}
+  <button {{on "click" this.startNewGame}} type="button">Start new game</button>
+{{else if this.isConfiguration}}
+  <Input
+    placeholder="Width (default {{this.defaultConfig.width}})"
+    aria-label="Width"
+    @type="number"
+    @value={{this.configuration.width}}
+  />
+  <Input
+    placeholder="Height (default {{this.defaultConfig.height}})"
+    aria-label="Height"
+    inputmode="numeric"
+    @type="number"
+    @value={{this.configuration.height}}
+  />
+  <Input
+    placeholder="Mines (default {{this.defaultConfig.mines}})"
+    aria-label="Mines"
+    @type="number"
+    @value={{this.configuration.mines}}
+  />
+  <button {{on "click" this.launchGame}} type="button">Launch Game</button>
+{{else}}
+  The game
+  <button {{on "click" this.exitGame}} type="button">Exit Game</button>
+
+  <div>
+    <div class="game">
+      <div class="field {{if this.isEnded "field--finish"}}">
+        {{#each this.game.field as |row x|}}
+          <div class="field-row">
+            {{#each row as |cell y|}}
+              <div 
+                class="field-cell {{if (and this.isFail cell.mine cell.revealed) "field-cell--mine"}} {{if cell.revealed "field-cell--safe"}}"
+                {{on "click" ( fn this.clickCell x y )}}
+                {{on "contextmenu" ( fn this.markCell x y )}}
+              >
+                {{#if (and this.isFail cell.mine)}}
+                  <span class="mine"></span>
+                {{/if}}
+                {{#if (or cell.marked (and this.isWin cell.mine))}}
+                  <span class="mark"></span>
+                {{/if}}
+                {{#unless (and cell.revealed cell.mine)}}
+                  {{cell.hint}}
+                {{/unless}}
+              </div>
+            {{/each}}
+          </div>
+        {{/each}}
+      </div>
+
+      {{#if this.isFail}}
+        <div class="fail">GAME OVER!</div>
+      {{/if}}
+      {{#if this.isWin}}
+        <div class="win">WIN!</div>
+      {{/if}}
+    </div>
+  </div>
+{{/if}}

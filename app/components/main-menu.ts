@@ -11,5 +11,9 @@ export default class ExampleComponent extends Component {
       route: 'index',
       label: 'Home',
     },
+    {
+      route: 'minesweeper',
+      label: 'Minesweeper',
+    },
   ];
 }
